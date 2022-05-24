@@ -1,14 +1,3 @@
-/*
-  Rui Santos
-  Complete project details at https://RandomNerdTutorials.com/esp8266-nodemcu-mqtt-publish-dht11-dht22-arduino/
-  
-  Permission is hereby granted, free of charge, to any person obtaining a copy
-  of this software and associated documentation files.
-  
-  The above copyright notice and this permission notice shall be included in all
-  copies or substantial portions of the Software.
-*/
-
 #include "DHT.h"
 #include <ESP8266WiFi.h>
 #include <Ticker.h>
@@ -19,8 +8,6 @@
 
 // Raspberri Pi Mosquitto MQTT Broker
 #define MQTT_HOST IPAddress(192, 168, 43, 142)
-// For a cloud MQTT broker, type the domain name
-//#define MQTT_HOST "example.com"
 #define MQTT_PORT 1883
 
 // Temperature MQTT Topics
@@ -31,9 +18,7 @@
 #define DHTPIN 14  
 
 // Uncomment whatever DHT sensor type you're using
-//#define DHTTYPE DHT11   // DHT 11
-#define DHTTYPE DHT22   // DHT 22  (AM2302), AM2321
-//#define DHTTYPE DHT21   // DHT 21 (AM2301)   
+#define DHTTYPE DHT22
 
 // Initialize DHT sensor
 DHT dht(DHTPIN, DHTTYPE);
@@ -87,7 +72,7 @@ void onMqttDisconnect(AsyncMqttClientDisconnectReason reason) {
   }
 }
 
-/*void onMqttSubscribe(uint16_t packetId, uint8_t qos) {
+void onMqttSubscribe(uint16_t packetId, uint8_t qos) {
   Serial.println("Subscribe acknowledged.");
   Serial.print("  packetId: ");
   Serial.println(packetId);
@@ -99,7 +84,7 @@ void onMqttUnsubscribe(uint16_t packetId) {
   Serial.println("Unsubscribe acknowledged.");
   Serial.print("  packetId: ");
   Serial.println(packetId);
-}*/
+}
 
 void onMqttPublish(uint16_t packetId) {
   Serial.print("Publish acknowledged.");
